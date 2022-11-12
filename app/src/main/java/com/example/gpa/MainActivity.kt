@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gpa.ui.theme.GPATheme
@@ -35,7 +36,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Column(modifier = Modifier.fillMaxWidth().padding(top = 24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 24.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
                         Sum(gpa.toString(), totalUnits.toString())
                         Spacer(modifier = Modifier.padding(vertical = 8.dp))
                         Row(horizontalArrangement = Arrangement.SpaceEvenly) {
@@ -73,6 +79,19 @@ class MainActivity : ComponentActivity() {
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Black
                         )
+
+                        Spacer(modifier = Modifier.padding(vertical = 16.dp))
+                        Button(
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                            onClick = {
+                                gpa = 0.0
+                                totalUnits = 0
+                                grade = "0"
+                                units = "0"
+                                avg = 0.0
+                            }) {
+                            Text(text = "Clear", color = Color.White)
+                        }
                     }
 
 
@@ -95,8 +114,8 @@ fun Sum(sum: String, units: String) {
             .padding(16.dp)
     ) {
         var units = units.ifEmpty { '0' }
-        Text(text = "Sum of grades x units : ${sum}")
-        Text(text = "Added units : ${ units }")
+        Text(text = "Sum of grades x units : ${sum}", softWrap = true , modifier = Modifier.weight(1f).padding(end=8.dp), textAlign = TextAlign.Center)
+        Text(text = "Added units : ${units}",softWrap = true, modifier = Modifier.weight(1f), textAlign = TextAlign.Center)
 
 
     }
